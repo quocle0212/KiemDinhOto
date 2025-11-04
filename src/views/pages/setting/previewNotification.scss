@@ -1,0 +1,20 @@
+.detail-post {
+
+  &-title {
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 50px;
+    margin: 0px 0px 8px;
+  }
+  
+  &-image {
+    width: 100%;
+    margin: 0px 0px 8px;
+    display: flex;
+    justify-content: center;
+    
+    & img {
+      max-width: 100%;
+    }
+  }
+}

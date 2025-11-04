@@ -1,0 +1,234 @@
+#search-input, .dataTable-filter{
+  max-width: unset !important;
+ }
+  
+ .cursor{
+   cursor: pointer !important;
+ }
+ 
+
+ #users-data-table {
+  .rdt_TableCell, .rdt_TableCol {
+    padding: .72rem;
+    &:first-child {
+      padding-left: 1.5rem;
+    }
+    &:last-child {
+      padding-right: 1.5rem;
+    }
+  }
+ }
+.color_licensePlates{
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+.color_white{
+  background-color: white;
+}
+.color_blue{
+  background-color: blue;
+  color: white;
+}
+.color_yellow{
+  background-color: yellow;
+}
+.color_red{
+  background-color: red;
+  color: white;
+}
+.licensePlates{
+  margin-top: 10px;
+  padding: 15px 45px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+.click_row{
+  cursor: pointer;
+}
+.name_text {
+  height: 350px;
+  padding-left: 10px;
+  margin-top: 15px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 5px;
+}
+.clear_text{
+  display: none;
+}
+.style_file{
+  padding-left: 10px;
+}
+
+// .small {
+//   font-size: 12px; // Ví dụ, thiết lập kích thước chữ là 12px
+//   height: 30px;
+// }
+.before-bg-file{
+position: relative;
+}
+.before-bg-file:before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-image: var(--bg);
+background-size: cover;
+background-position: 50%;
+background-repeat: no-repeat;
+opacity: 1;
+transition: opacity 0.3s;
+}
+
+.before-bg-file:hover:before {
+opacity: 0.1;
+}
+.drop-file-input {
+position: relative;
+width: 25%;
+height: 180px;
+border: 1px dashed hsl(245, 82%, 67%);
+border-radius: 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: var(--input-bg);
+input {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+&__label {
+  text-align: center;
+  color: var(--txt-second-color);
+  font-weight: 600;
+  padding: 10px;
+  img {
+    width: 100px;
+  }
+}
+
+}
+.drop-file-input:hover,
+.drop-file-input.dragover {
+opacity: 0.6;
+}
+.drop-file-preview {
+margin-top: 30px;
+p {
+  font-weight: 500;
+}
+&__title {
+  margin-bottom: 20px;
+}
+&__item {
+  position: relative;
+  display: flex;
+  margin-bottom: 10px;
+  max-width: 40%;
+  border-bottom: 2px solid #66CCFF;
+  img {
+    width: 50px;
+    margin-right: 20px;
+  }
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &__del {
+    width: 25px;
+    height: 25px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 18px;
+    background: #ff0000;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+}
+}
+.drop-file-preview__item:hover .drop-file-preview__item__del {
+opacity: 1;
+}
+
+@media (max-width: 576px) {
+  .style_file{
+    margin-top: 30px;
+    .drop-file-preview {
+      margin-top: 30px;
+      p {
+        font-weight: 500;
+      }
+      &__title {
+        margin-bottom: 20px;
+      }
+      &__item {
+        position: relative;
+        display: flex;
+        margin-bottom: 10px;
+        max-width: 100%;
+        border-bottom: 2px solid #66CCFF;
+        img {
+          width: 50px;
+          margin-right: 20px;
+        }
+        &__info {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+        &__del {
+          width: 25px;
+          height: 25px;
+          border-radius: 8px;
+          font-weight: 500;
+          font-size: 18px;
+          background: #ff0000;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          box-shadow: var(--box-shadow);
+          cursor: pointer;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+      }
+      }
+  }
+}

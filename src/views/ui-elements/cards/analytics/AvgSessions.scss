@@ -1,0 +1,7 @@
+@media(max-width: 426px) {
+  p  {
+    &.my_text {
+      min-height: 42px;
+    }
+  }
+}

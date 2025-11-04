@@ -1,0 +1,302 @@
+@import'../../../../public/typography.scss';
+
+#search-input,
+.dataTable-filter {
+  max-width: unset !important;
+}
+
+.cursor {
+  cursor: pointer !important;
+}
+
+.headerCard{
+  display: flex !important;
+  flex-direction: column;
+  align-items: baseline !important;
+  justify-content: center !important;
+}
+
+#users-data-table {
+
+  .rdt_TableCell,
+  .rdt_TableCol {
+    padding: .72rem;
+
+    &:first-child {
+      padding-left: 1.5rem;
+    }
+
+    &:last-child {
+      padding-right: 1.5rem;
+    }
+  }
+}
+
+.color_licensePlates {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.color_white {
+  background-color: white;
+}
+
+.color_blue {
+  background-color: blue;
+  color: white;
+}
+
+.color_yellow {
+  background-color: yellow;
+}
+
+.color_red {
+  background-color: red;
+  color: white;
+}
+
+.color_deployed {
+  color: #16a34a;
+}
+
+.color_overload {
+  color: red;
+}
+
+.color_actived {
+  color: #7367f0;
+}
+
+.bg-actived {
+  background-color: rgba(#7367f0, 0.3);
+  opacity: 0.4;
+}
+
+.bg-overload {
+  background-color: rgba(red, 0.3);
+  opacity: 0.4;
+}
+
+.bg-deployed {
+  background-color: rgba(#16a34a, 0.3);
+  opacity: 0.4;
+}
+
+.licensePlates {
+  margin-top: 10px;
+  padding: 15px 45px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.icon-deployed {
+  color: #16a34a;
+  margin-left: 5px;
+}
+
+.width-200 {
+  width: 90px;
+}
+
+.title-total {
+  font-size: 20px !important;
+}
+
+.icon-overload {
+  color: red;
+  margin-left: 5px;
+}
+
+
+.background-color {
+  background-color: #f6f6f6;
+
+  h1 {
+    font-weight: 700;
+    color: black;
+  }
+
+  .active_col {
+    border: 1px solid black;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+  }
+}
+
+.text {
+  color: black;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+
+.text-1 {
+  color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity));
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.65rem;
+  letter-spacing: .0125em;
+  text-overflow: ellipsis;
+  text-transform: none;
+  margin-left: 18px;
+  margin-bottom: -3px !important;
+  margin-top: 23px;
+}
+
+
+.table {
+  width: 80%;
+  background-color: white;
+  border-collapse: collapse;
+  border: 1px solid rgb(200, 200, 200);
+  letter-spacing: 1px;
+
+  tbody {
+    tr {
+      height: 42px;
+
+      td {
+        border: 1px solid rgb(190, 190, 190);
+        background-color: white;
+      }
+    }
+  }
+}
+
+.equal {
+  margin-top: -4px;
+}
+
+.col-sm-2dot4 .col-md-2dot4 .col-lg-2dot4 {
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.margin-10 {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+
+.icon-actived {
+  color: #7367f0;
+  margin-left: 5px;
+}
+
+.ml-5 {
+  margin-left: 5px;
+}
+
+.position-table {
+  position: relative;
+  top: 32px;
+}
+
+.block-icon {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  margin-bottom: 5px;
+}
+
+.title {
+  position: relative;
+  color: black !important;
+  font-weight: 700;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.size-title {
+  font-size: 20px;
+}
+
+.border-block {
+  border: 1px solid #0000;
+}
+
+.ml-15 {
+  margin-left: 15px;
+}
+
+.width-title {
+  width: 100px;
+}
+
+.scroll-table {
+  height: 700px;
+  overflow-y: scroll;
+}
+
+.date_width{
+  width: 220px;
+  height: 38px;
+  font-size: 12px;
+}
+.clear_text{
+  display: none;
+  height: 32px;
+}
+
+.font_style{
+  font-size: $text-normal-small-fs;
+}
+
+.style_activity{
+  .rdt_TableBody{
+    .rdt_TableRow{
+      .rdt_TableCell{
+        height: 100px !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 720px) {
+  .col-md-2dot4 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+
+  .mt-10 {
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 960px) {
+  .col-lg-2dot4 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+
+}
+
+@media (max-width: 420px) {
+  .h-247 {
+    height: 247px;
+  }
+
+  .mg-auto {
+    margin: auto;
+  }
+
+  .mt {
+    margin-top: 55px;
+  }
+
+  .mt-70 {
+    margin-top: 70px;
+  }
+}

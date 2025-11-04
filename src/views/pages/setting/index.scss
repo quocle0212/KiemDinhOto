@@ -1,0 +1,107 @@
+.slider-container {
+  max-width: 988px;
+  margin: auto;
+
+  & [dir] .slick-dots li {
+    margin: 0px;
+  }
+}
+.drag-drop {
+  border: 1px dashed hsl(245, 82%, 67%);
+  width: 25%;
+}
+.drag-drop:hover {
+  cursor: pointer;
+}
+.slide {
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(0deg, rgba(34, 34, 34, 0.75) 2.92%, rgba(34, 34, 34, 0) 45.14%);
+    z-index: 1;
+  }
+}
+.slide img {
+  width: 100%;
+  height: auto;
+  max-width: 988px;
+  aspect-ratio: 1976/1165;
+  /* Đảm bảo tỷ lệ 1.69 */
+  z-index: 0;
+}
+
+.slick-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: hsla(0,0%,100%,.3764705882352941);
+  z-index: 1;
+}
+
+.slick-dots li.slick-active .slick-dot {
+  width: 35px;
+  height: 7px;
+  margin-right: 13px;
+  border-radius: 8px;
+  opacity: 1;
+}
+
+.slick-dots li button {
+  padding: 0;
+}
+
+.slick-dots li {
+  width: auto;
+  min-width: 20px;
+}
+
+.slick-dots-container {
+  position: absolute;
+  left: 10px;
+  bottom: 20px;
+}
+
+.slick-dots {
+  text-align: center;
+}
+
+.no-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #333;
+  height: auto;
+  width: 100%;
+  min-height: 300px;
+}
+.before-bg-file{
+  position: relative;
+}
+.before-bg-file:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: var(--bg);
+  background-size: cover;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+.icon {
+  color: hsl(245, 82%, 67%);
+}
+@media screen and (max-width: 768px) {
+  .drag-drop{
+    width: 100%;
+  }
+}

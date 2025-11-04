@@ -1,0 +1,114 @@
+.area_text {
+  height: 450px;
+  padding-left: 10px;
+  margin-top: 15px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 5px;
+}
+
+.size-title {
+  font-size: .875rem;
+  line-height: 1.25rem;
+  color: rgba(var(--v-theme-on-background), var(--v-disabled-opacity)) !important;
+  font-weight: 400;
+  letter-spacing: .0178571429em;
+}
+
+.block-content {
+  padding: 24px;
+}
+
+.text-content {
+  font-size: 1.5rem !important;
+  font-weight: 500;
+  line-height: 2rem;
+  letter-spacing: normal !important;
+}
+
+.ml-10 {
+  margin-left: 0px;
+}
+
+.width-content {
+  width: 100px;
+  position: relative;
+  left: 29px;
+  top: -21px;
+
+}
+
+.text-others {
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: .0178571429em;
+}
+
+.margintop-5 {
+  margin-top: -5px;
+}
+
+.mdiCartOutline-color {
+  color: #00cFF8;
+  background-color: rgba(#00cFF8, $alpha: 0.2);
+  padding: 3px;
+  border-radius: 5px;
+}
+
+.block-icon {
+  border-radius: 5px;
+}
+
+.mdiLinkVariant-color {
+  color: #7367F0;
+  background-color: rgba(#7367F0, $alpha: 0.2);
+  padding: 3px;
+  border-radius: 5px;
+}
+
+.ps-10 {
+  position: relative;
+  top: -30px;
+  left: 22px;
+}
+
+.style_text:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 420px) {
+  .ps-10-reponsive {
+    top: -129px;
+  }
+
+  .mt-30 {
+    margin-top: -30px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .productivityTab-item {
+    height: auto;
+    margin-bottom: 24px;
+
+    & div {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

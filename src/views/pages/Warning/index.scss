@@ -1,0 +1,37 @@
+.clear_text{
+    display: none;
+}
+.style_file{
+    padding-left: 10px;
+}
+.click_row{
+    cursor: pointer;
+    color: #66CCFF		;
+    text-decoration: underline;
+}
+.text-flow{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.form-container{
+    width: 98px;
+}
+.react-dataTable .rdt_TableHead .rdt_TableHeadRow{
+    background-color: #f3f2f7;
+    border-top: 1px solid;
+    border-color: #ebe9f1;
+    min-height: 0;
+    height: 38px;
+    .iEavYU{
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #6e6b7b;
+        font-size: 12px;
+    }
+}
+
+.text-warnings{
+    font-size: 13px;
+    color: #000000de;
+}

@@ -1,0 +1,22 @@
+.deleteImage{
+  position: absolute;
+  border-radius: 100px;
+  width: 15px;
+  text-align: center;
+  height: 15px;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  top: 0px;
+  background-color: #eae1e16b;
+
+  color: red;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  top: -15px;
+  right: -15px;
+}

@@ -1,0 +1,37 @@
+.input_paging{
+    width: 100px;
+    height: 30px;
+    text-align: center;
+}
+
+.bg_left{
+    position: absolute;
+    top: 3px;
+    right: 15px;
+}
+
+.bg_left:hover{
+    background: linear-gradient(118deg, #7367f0, rgba(115, 103, 240, 0.7));
+    border-radius: 50%;
+    svg{
+        color: aliceblue;
+    }
+}
+
+.bg_right{
+    position: absolute;
+    top: 3px;
+    left: 15px;
+}
+
+.bg_right:hover{
+    background: linear-gradient(118deg, #7367f0, rgba(115, 103, 240, 0.7));
+    border-radius: 50%;
+    svg{
+        color: aliceblue;
+    }
+}
+
+.disabled{
+    pointer-events: none; // ko click được
+}

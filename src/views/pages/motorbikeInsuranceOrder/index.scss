@@ -1,0 +1,65 @@
+.exportContract{
+  width: 180px;
+}
+/* Loading */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.label-bh{
+  font-size: 15px;
+  font-weight: 600;
+} 
+
+.before-bg-file{
+  position: relative;
+}
+
+[dir] .nav-tabs {
+  margin-bottom: 0px;
+}
+
+.newTab{
+  padding: 15px;
+}
+
+.before-bg-file:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: var(--bg);
+  background-size: cover;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.before-bg-file:hover:before {
+  opacity: 0.1;
+}
+.drag-drop-order {
+  border: 1px dashed hsl(245, 82%, 67%);
+  width: 100%;
+}
+.drag-drop-order:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .drag-drop-order{
+    width: 100%;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

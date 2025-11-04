@@ -1,0 +1,149 @@
+.form-group {
+  align-items: center;
+
+}
+
+.accountAdmin {
+  padding: 20px;
+
+  &__title {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.map-iframe iframe {
+  width: 100%;
+}
+
+#stationVerifyStatus {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-variant: tabular-nums;
+  list-style: none;
+  font-feature-settings: 'tnum', "tnum";
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  min-width: 0;
+  padding: 4px;
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 14px;
+  line-height: 1.5715;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+#stations-data-table {
+
+  .rdt_TableCol,
+  .rdt_TableCell {
+    padding: .72rem;
+
+    &:first-child {
+      padding-left: 1.5rem;
+    }
+
+    &:last-child {
+      padding-right: 1.5rem;
+    }
+  }
+}
+
+.olnine {
+  .text_olnine {
+    border-radius: 10px;
+    padding: 5px 10px;
+    background-color: red;
+    margin-top: 14px;
+    color: white;
+  }
+}
+.circle_blue {
+  background-color: chartreuse;
+  margin-top: 14px;
+  border-radius: 10px;
+  padding: 5px 10px;
+}
+
+.block-width {
+  height: 38px;
+}
+
+.margin {
+  margin: 12px;
+}
+
+.color_licensePlates {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.color_white {
+  background-color: white;
+}
+
+.color_blue {
+  background-color: blue;
+  color: white;
+}
+
+.color_yellow {
+  background-color: yellow;
+}
+
+.color_red {
+  background-color: red;
+  color: white;
+}
+
+.clear_text {
+  display: none;
+}
+
+.ml-29 {
+  margin-left: 29px;
+}
+
+.title-appointment {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.title-small {
+  font-size: 10px;
+}
+
+.ml-0 {
+  margin-left: 0px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+
+.ml-20 {
+  margin-left: 20px;
+}
+
+.p-0 {
+  padding: 0;
+}
+.label_color{
+  color: #0870d9;
+  font-size: 13px;
+}

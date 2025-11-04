@@ -1,0 +1,37 @@
+.pointer {
+    cursor: pointer;
+}
+
+.pay_text{
+  padding: 15px 15px;
+  color: #66CCFF;
+}
+.text-center{
+  display: flex;
+  align-items: center;
+}
+
+.header_text{
+  h5{
+    font-weight: 600;
+    font-size: 20px;
+  }
+}
+
+.label_text{
+  margin-bottom: 12px;
+  color: #66CCFF;
+}
+
+.style_text{
+  padding-left: 20px;
+  margin-bottom: 12px;
+}
+
+.text-table {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

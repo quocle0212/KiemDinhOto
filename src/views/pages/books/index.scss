@@ -1,0 +1,14 @@
+.select__control{
+  // min-height: 28px !important;
+  // height: 28px;
+}
+.cursor{
+  cursor: pointer;
+}
+.booksCategories{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

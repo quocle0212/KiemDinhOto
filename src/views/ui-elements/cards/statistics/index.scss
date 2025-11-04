@@ -1,0 +1,111 @@
+.col-widget{
+    height: auto;
+}
+.station-active {
+    max-height: 80vh;
+    padding-left: 10px;
+    margin-top: 15px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+        width: 8px; // Width of the scrollbar
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1; // Background of the scrollbar track
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #888; // Color of the scrollbar thumb
+        border-radius: 10px; // Rounded corners for the thumb
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #555; // Color of the thumb on hover
+    }
+
+  }
+
+  #stations-data-table {
+    .rdt_TableCol,
+    .rdt_TableCell {
+      padding: .72rem;
+  
+      &:first-child {
+        padding-left: 1.5rem;
+      }
+  
+      &:last-child {
+        padding-right: 1.5rem;
+      }
+    }
+  }
+
+  .react-dataTable {
+    border-radius: 0;
+    .rdt_TableHead {
+      .rdt_TableHeadRow {
+        background-color: #f3f2f7;
+        border-top: 1px solid;
+        border-color: #ebe9f1;
+        min-height: 0;
+        height: 38px;
+  
+        .rdt_TableCol {
+          padding: 0.72rem 1.5rem;
+          .rdt_TableCol_Sortable {
+            color: #6e6b7b;
+            font-weight: bold;
+            font-style: 0.857rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            &:hover {
+              color: #6e6b7b;
+            }
+          }
+        }
+      }
+    }
+  
+    .rdt_TableBody {
+      .rdt_TableRow {
+        .rdt_TableCell {
+          height: auto;
+          padding: 0.72rem 1.5rem;
+  
+          .column-action {
+            svg {
+              stroke: #6e6b7b;
+            }
+  
+            .dropdown-item:hover {
+              svg {
+                stroke: #7367f0;
+              }
+            }
+  
+            .dropdown-item:active {
+              svg {
+                stroke: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    .react-paginate {
+      &.separated-pagination {
+        .page-item:first-child .page-link,
+        .page-item:last-child .page-link {
+          border-radius: 50%;
+        }
+      }
+    }
+  }

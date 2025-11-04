@@ -1,0 +1,69 @@
+.before-bg-file{
+  position: relative;
+}
+.before-bg-file:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: var(--bg);
+  background-size: cover;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.before-bg-file:hover:before {
+  opacity: 0.1;
+}
+.drag-drop {
+  border: 1px dashed hsl(245, 82%, 67%);
+  width: 25%;
+}
+.drag-drop:hover {
+  cursor: pointer;
+}
+.icon {
+  color: hsl(245, 82%, 67%);
+}
+.ql-editor {
+  min-height: 18em;
+}
+.wrap-quill{
+  max-height: 500px;
+  overflow: auto;
+}
+.app {
+  margin: 1rem 4rem;
+}
+.font {
+  font-size: 12px;
+}
+.form-control-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.click_row{
+  cursor: pointer;
+  color: #66CCFF		;
+  text-decoration: underline;
+}
+
+.text-table {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space : normal !important
+}
+
+@media screen and (max-width: 768px) {
+  .drag-drop{
+    width: 100%;
+  }
+}

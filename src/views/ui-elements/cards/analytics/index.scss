@@ -1,0 +1,23 @@
+.modal-report{
+  max-width: 80vw;
+  .modal-table{
+    overflow: auto;
+    max-height: 75vh;
+  }
+}
+.dropdown-menu{
+  overflow: auto;
+  max-height: 250px;
+}
+.filter-day{
+  margin-top: 15px;
+  float: inline-start;
+  border: 1px solid #7367f0 !important;
+  border-radius: 6px;
+}
+
+@media(max-width: 480px) {
+  .modal-report{
+    max-width: 100vw;
+  }
+}

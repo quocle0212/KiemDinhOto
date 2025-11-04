@@ -1,0 +1,108 @@
+.upload-container {
+  display: flex;
+  max-width: 988px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.upload-col {
+  flex: 1;
+  width: 19.6%;
+  padding-left: 1%;
+  padding-right: 1%;
+  margin-top: 8px;
+}
+
+.upload-col:first-child {
+  padding-left: 0;
+}
+
+.upload-col:last-child {
+  padding-right: 0;
+}
+
+.upload-label {
+  display: block;
+  width: 100%;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border: 2px dashed #ccc;
+  text-align: center;
+  color: #777;
+}
+
+.uploaded-image {
+  width: 100%;
+  height: auto;
+}
+
+.upload-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.image-description {
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .upload-col {
+    flex: 1 0 calc(50% - 10px);
+  }
+}
+
+@media (max-width: 480px) {
+  .upload-col {
+    flex: 1 0 calc(100% - 10px);
+  }
+}
+
+.Modal {
+  width: 90%;
+  max-width: 800px;
+  margin: auto;
+}
+
+.ModalBody {
+  height: 400px;
+  overflow-y: auto;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-wrapper:hover .overlay {
+  opacity: 1;
+}
+
+.delete-icon {
+  cursor: pointer;
+  color: #fff;
+}
+
+.uploaded-image {
+  width: 100%;
+  height: auto;
+}

@@ -1,0 +1,100 @@
+#search-input, .dataTable-filter{
+    max-width: unset !important;
+   }
+    
+   .cursor{
+     cursor: pointer !important;
+   }
+   
+  
+   #users-data-table {
+    .rdt_TableCell, .rdt_TableCol {
+      padding: .72rem;
+      &:first-child {
+        padding-left: 1.5rem;
+      }
+      &:last-child {
+        padding-right: 1.5rem;
+      }
+    }
+   }
+  .color_licensePlates{
+    margin-top: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+  }
+  .color_white{
+    background-color: white;
+  }
+  .color_blue{
+    background-color: blue;
+    color: white;
+  }
+  .color_yellow{
+    background-color: yellow;
+  }
+  .color_red{
+    background-color: red;
+    color: white;
+  }
+  .licensePlates{
+    margin-top: 10px;
+    padding: 15px 45px;
+    border-radius: 5px;
+    border: 1px solid black;
+  }
+  .width__filter {
+    height: 30px;
+  }
+  .olnine {
+    width: 100px;
+    display: flex;
+    flex-wrap: nowrap;
+  
+    .circle_red {
+      background-color: red;
+      margin-top: 14px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
+  
+    .text_olnine {
+      padding-left: 10px;
+      margin-top: 14px;
+      width: 70px;
+    }
+  }
+  .circle_blue {
+    background-color: chartreuse;
+    margin-top: 14px;
+    width: 20px;
+    height : 20px;
+    border-radius: 50%;
+  }
+  .click_row{
+    cursor: pointer;
+    color: #66CCFF		;
+    text-decoration: underline;
+  }
+  .clear_text{
+    display: none;
+  }
+  .style_role {
+    display: flex;
+    h6{
+      margin-left: 10px;
+      margin-top: 8px;
+    }
+  }
+  .technicians_tables{
+    .css-4ljt47-MenuList {
+      background-color: hsl(0, 0%, 100%);
+      border-radius: 4px;
+      box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 4px 11px hsla(0, 0%, 0%, 0.1);
+      position: fixed !important;
+    }
+  }
+  
+  

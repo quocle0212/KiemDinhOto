@@ -1,0 +1,139 @@
+.advertising {
+  .card-body {
+    min-height: calc(100vh - 190px);
+    .deleteImage{
+      position: absolute;
+      border-radius: 100px;
+      width: 15px;
+      text-align: center;
+      height: 15px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      left: 0px;
+      top: 0px;
+      background-color: #ffffff;
+    }
+    
+    .deleteImageRight {
+      border-radius: 100px;
+      width: 15px;
+      text-align: center;
+      height: 15px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #ffffff;
+    }
+
+    .banner {
+      max-height: 600px;
+      max-width: 160px !important;
+    }
+
+    .banner-empty {
+      border: 1px solid #4d4d4d;
+      height: 524px;
+    }
+  }
+
+}
+
+
+.edit_banner {
+  padding-top: 20px;
+  
+  @media(max-width: 321px) {
+    .banner {
+      width: 33% !important;
+    }
+  }
+
+  .card-body {
+    padding: 0
+  }
+
+  &_back {
+    span {
+      padding-right: 5px;
+    }
+    font-size: 17px;
+    padding-left: 10px;
+  }
+
+  &__body {
+    padding: 0 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &_table {
+      max-width: calc(100vw - 340px) !important;
+    }
+
+    @media(max-width: 321px) {
+      &_banner {
+        width: 50% !important;
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    &_banner {
+      width: 160px;
+      height: 600px;
+      border: 1px solid red;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+
+      label {
+        width: 160px;
+        height: 600px;
+        cursor: pointer;
+        text-align: center;
+        font-size: 15px;
+      }
+
+       
+      &_pixel {
+        height: 95%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 27px;
+        font-weight: 500;
+        color: #ccc;
+      }
+      
+      @media(max-width: 768px) {
+        &_pixel {
+          font-size: 20px;
+        }
+      }
+    }
+    
+    .delete_button {
+      width: 160px;
+      display: flex;
+      justify-content: center;
+    }
+  }
+  
+  
+  .row {
+    margin: 0;
+    @media(max-width: 767px) {
+      .custom_padding {
+        padding-bottom: 1rem;
+      }
+    }
+    @media(max-width: 768px) {
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+.tables{
+    text-align: center;
+    overflow-x: auto;
+    tr {
+        th {
+            font-weight: normal;
+            border-width: 1px;
+        }
+    }
+}
+
+.theads {
+    font-weight: bold !important;
+}
+
+@media all and (max-width: 576px) {
+    .tables{
+        &-text {
+            .mobie_style{
+                padding-right: 0;
+                padding-left: 0;
+            }
+        }
+    }
+ }

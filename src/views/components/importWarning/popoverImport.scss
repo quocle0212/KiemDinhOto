@@ -1,0 +1,53 @@
+.documentary-popover {
+  position: fixed;
+  bottom: 0px;
+  right: 10px;
+  width: 500px;
+  height: auto;
+  background: #fff;
+  border-radius: 8px;
+  z-index: 99;
+  padding: 50px 30px 20px;
+  box-shadow: var(--dt-surface1-shadow, 0 1px 2px 0 rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15));
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+
+    &-action {
+      display: flex;
+    }
+
+    &-icon {
+      cursor: pointer;
+      margin-left: 10px;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    margin-bottom: 20px;
+  }
+
+  &-list {
+    max-height: 400px;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  &-item {
+    padding: 15px 0px;
+    display: flex;
+    justify-content: space-between;
+
+    &-name {
+      flex: 1;
+    }
+
+    &-status {
+      padding-left: 20px;
+    }
+  }
+}

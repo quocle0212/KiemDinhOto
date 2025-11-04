@@ -1,0 +1,24 @@
+.clear_text{
+    display: none;
+}
+.style_file{
+    padding-left: 10px;
+}
+.text{
+    margin-top: 12px;
+}
+
+.small {
+    font-size: 12px; // Ví dụ, thiết lập kích thước chữ là 12px
+    height: 30px;
+}
+.click_row{
+    cursor: pointer;
+    color: #66CCFF		;
+    text-decoration: underline;
+}
+.text-flow{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

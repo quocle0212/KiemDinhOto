@@ -1,0 +1,11 @@
+.mess-qty-type{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+}
+.message-success{
+  color: #28c76f;
+}
+.message-fail{
+  color: #ea5455;
+}

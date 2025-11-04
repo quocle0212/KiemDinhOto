@@ -1,0 +1,26 @@
+@import './base/bootstrap.scss';
+@import './base/bootstrap-extended.scss';
+@import './base/colors.scss';
+@import './base/components.scss';
+
+// Themes
+@import './base/themes/dark-layout.scss';
+@import './base/themes/bordered-layout.scss';
+@import './base/themes/semi-dark-layout.scss';
+// @import './base/custom-rtl.scss';
+
+// React Specific
+@import 'react/index';
+
+.text-table {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link {
+  color: #7367f0;
+  cursor: pointer;
+}

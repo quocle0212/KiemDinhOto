@@ -1,0 +1,92 @@
+#search-input, .dataTable-filter{
+  max-width: unset !important;
+ }
+  
+ .cursor{
+   cursor: pointer !important;
+ }
+ 
+
+ #users-data-table {
+  .rdt_TableCell, .rdt_TableCol {
+    padding: .72rem;
+    &:first-child {
+      padding-left: 1.5rem;
+    }
+    &:last-child {
+      padding-right: 1.5rem;
+    }
+  }
+ }
+.color_licensePlates{
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+.color_white{
+  background-color: white;
+}
+.color_blue{
+  background-color: blue;
+  color: white;
+}
+.color_yellow{
+  background-color: yellow;
+}
+.color_red{
+  background-color: red;
+  color: white;
+}
+.licensePlates{
+  margin-top: 10px;
+  padding: 15px 45px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+.personal{
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: aqua;
+}
+.company{
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: rgb(255, 166, 0);
+}
+.click_row{
+  cursor: pointer;
+  color: #66CCFF		;
+  text-decoration: underline;
+}
+
+.user-btn {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #7367f0 !important;
+  margin: 0px 4px;
+
+  &--danger {
+    border-color: #ea5455 !important;
+    background-color: #ea5455 !important;
+    color: #fff !important;
+    cursor: pointer;
+  }
+  
+  &--primary {
+    border-color: #7367f0 !important;
+    background-color: #7367f0 !important;
+    color: #fff !important;
+    cursor: pointer;
+  }
+
+}
+
+.modalReason {
+
+  &-textarea {
+    padding: 10px;
+  }
+  
+}
+

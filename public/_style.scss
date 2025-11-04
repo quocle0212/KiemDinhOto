@@ -1,0 +1,112 @@
+// Định nghĩa kích thước chữ, khoảng cách dòng và độ đậm cho văn bản
+$text-styles: (
+  'very-small': (
+    'font-size': 12px,
+    'line-height': 1.5,
+    'font-weight': 400
+  ),
+  'normal-small': (
+    'font-size': 13px,
+    'line-height': 1.5,
+    'font-weight': 400
+  ),
+  'small': (
+    'font-size': 14px,
+    'line-height': 1.5,
+    'font-weight': 400
+  ),
+  'normal': (
+    'font-size': 16px,
+    'line-height': 1.5,
+    'font-weight': 400
+  ),
+  'large': (
+    'font-size': 20px,
+    'line-height': 1.5,
+    'font-weight': 400
+  ),
+  'x-large': (
+    'font-size': 24px,
+    'line-height': 1.5,
+    'font-weight': 400
+  ),
+);
+
+// Định nghĩa kích thước chữ, khoảng cách dòng và độ đậm cho title
+$title-styles: (
+  'very-small': (
+    'font-size': 14px,
+    'line-height': 1.5,
+    'font-weight': 600
+  ),
+  'small': (
+    'font-size': 16px,
+    'line-height': 1.5,
+    'font-weight': 600
+  ),
+  'normal': (
+    'font-size': 24px,
+    'line-height': 1.5,
+    'font-weight': 600
+  ),
+  'large': (
+    'font-size': 32px,
+    'line-height': 1.5,
+    'font-weight': 600
+  ),
+  'x-large': (
+    'font-size': 48px,
+    'line-height': 1.5,
+    'font-weight': 600
+  ),
+);
+
+// Text styles
+$text-very-small-fs: map-get(map-get($text-styles, 'very-small'), 'font-size'); // 12px
+$text-very-small-lh: map-get(map-get($text-styles, 'very-small'), 'line-height'); // 1.5
+$text-very-small-fw: map-get(map-get($text-styles, 'very-small'), 'font-weight'); // 400
+
+$text-normal-small-fs: map-get(map-get($text-styles, 'normal-small'), 'font-size'); // 12px
+$text-normal-small-lh: map-get(map-get($text-styles, 'normal-small'), 'line-height'); // 1.5
+$text-normal-small-fw: map-get(map-get($text-styles, 'normal-small'), 'font-weight'); // 400
+
+$text-small-fs: map-get(map-get($text-styles, 'small'), 'font-size'); // 14px
+$text-small-lh: map-get(map-get($text-styles, 'small'), 'line-height'); // 1.5
+$text-small-fw: map-get(map-get($text-styles, 'small'), 'font-weight'); // 400
+
+$text-normal-fs: map-get(map-get($text-styles, 'normal'), 'font-size'); // 16px
+$text-normal-lh: map-get(map-get($text-styles, 'normal'), 'line-height'); // 1.5
+$text-normal-fw: map-get(map-get($text-styles, 'normal'), 'font-weight'); // 400
+
+$text-large-fs: map-get(map-get($text-styles, 'large'), 'font-size'); // 20px
+$text-large-lh: map-get(map-get($text-styles, 'large'), 'line-height'); // 1.5
+$text-large-fw: map-get(map-get($text-styles, 'large'), 'font-weight'); // 400
+
+$text-x-large-fs: map-get(map-get($text-styles, 'x-large'), 'font-size'); // 24px
+$text-x-large-lh: map-get(map-get($text-styles, 'x-large'), 'line-height'); // 1.5
+$text-x-large-fw: map-get(map-get($text-styles, 'x-large'), 'font-weight'); // 400
+
+// Title styles
+$title-very-small-fs: map-get(map-get($title-styles, 'very-small'), 'font-size'); // 14px
+$title-very-small-lh: map-get(map-get($title-styles, 'very-small'), 'line-height'); // 1.5
+$title-very-small-fw: map-get(map-get($title-styles, 'very-small'), 'font-weight'); // 700
+
+$text-normal-small-fs: map-get(map-get($text-styles, 'normal-small'), 'font-size'); // 12px
+$text-normal-small-lh: map-get(map-get($text-styles, 'normal-small'), 'line-height'); // 1.5
+$text-normal-small-fw: map-get(map-get($text-styles, 'normal-small'), 'font-weight'); // 400
+
+$title-small-fs: map-get(map-get($title-styles, 'small'), 'font-size'); // 16px
+$title-small-lh: map-get(map-get($title-styles, 'small'), 'line-height'); // 1.5
+$title-small-fw: map-get(map-get($title-styles, 'small'), 'font-weight'); // 700
+
+$title-normal-fs: map-get(map-get($title-styles, 'normal'), 'font-size'); // 24px
+$title-normal-lh: map-get(map-get($title-styles, 'normal'), 'line-height'); // 1.5
+$title-normal-fw: map-get(map-get($title-styles, 'normal'), 'font-weight'); // 700
+
+$title-large-fs: map-get(map-get($title-styles, 'large'), 'font-size'); // 32px
+$title-large-lh: map-get(map-get($title-styles, 'large'), 'line-height'); // 1.5
+$title-large-fw: map-get(map-get($title-styles, 'large'), 'font-weight'); // 700
+
+$title-x-large-fs: map-get(map-get($title-styles, 'x-large'), 'font-size'); // 48px
+$title-x-large-lh: map-get(map-get($title-styles, 'x-large'), 'line-height'); // 1.5
+$title-x-large-fw: map-get(map-get($title-styles, 'x-large'), 'font-weight'); // 700
