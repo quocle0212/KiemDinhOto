@@ -26,7 +26,8 @@ import {
   Tool,
   Grid,
   Camera,
-  FileText
+  FileText,
+  AlertCircle
 } from 'react-feather'
 import { ALL_PERMISSION } from '../../constants/permission'
 
@@ -135,6 +136,13 @@ const App = [
         icon: <Camera size={12} />,
         navLink: '/pages/camera',
         permissions: [ALL_PERMISSION.VIEW_MANAGER_STATIONS.childrens.VIEW_STATIONS_CAMERA.value],
+      },
+      {
+        id: 'list-alert',
+        title: 'alert',
+        icon: <AlertCircle size={12} />,
+        navLink: '/pages/alert',
+        permissions: [ALL_PERMISSION.VIEW_MANAGER_STATIONS.childrens.VIEW_STATIONS_ALERT.value],
       },
     ]
   },

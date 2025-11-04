@@ -62,6 +62,10 @@ export const ALL_PERMISSION = {
       VIEW_STATIONS_CAMERA: {
         value: 'VIEW_STATIONS_CAMERA',
         label: 'Quản lý - Camera'
+      },
+      VIEW_STATIONS_ALERT: {
+        value: 'VIEW_STATIONS_ALERT',
+        label: 'Quản lý - Cảnh báo'
       }
     }
   },
