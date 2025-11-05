@@ -184,6 +184,12 @@ export const VEHICLE_PLATE_COLOR = {
   },
 }
 
+export const VIOLATION_STATUS = {
+  PENDING: { value: 'PENDING', label: 'Chưa xử lý', color: 'danger' },
+  PROCESSED: { value: 'PROCESSED', label: 'Đã xử lý', color: 'success' },
+  NO_VIOLATION: { value: 'NO_VIOLATION', label: 'Không vi phạm', color: 'secondary' }
+}
+
 export const LOCAL = {
   normal : 2,
   high_level : 3
