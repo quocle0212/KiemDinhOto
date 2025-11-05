@@ -374,6 +374,10 @@ const PagesRoutes = [
   {
     path: '/pages/detail-camera/:id',
     component: lazy(() => import('../../views/pages/camera/detail'))
+  },
+  {
+    path: '/pages/alert',
+    component: lazy(() => import('../../views/pages/alert/index'))
   }
 ]
 
