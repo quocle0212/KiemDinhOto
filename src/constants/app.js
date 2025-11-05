@@ -169,18 +169,22 @@ export const VEHICLE_PLATE_COLOR = {
   WHITE: {
     value: LICENSEPLATES_COLOR.white,
     label: 'Trắng',
+    color: 'color_white'
   },
   BLUE: {
     value: LICENSEPLATES_COLOR.blue,
     label: 'Xanh',
+    color: 'color_blue'
   },
   YELLOW: {
     value: LICENSEPLATES_COLOR.yellow,
     label: 'Vàng',
+    color: 'color_yellow'
   },
   RED: {
     value: LICENSEPLATES_COLOR.red,
     label: 'Đỏ',
+    color: 'color_red'
   },
 }
 

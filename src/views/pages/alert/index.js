@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Trash, Edit, Search } from 'react-feather'
 import { useIntl } from 'react-intl'
-import { Button, Card, CardBody, Modal, ModalBody, ModalFooter, ModalHeader, Row, Col, Input, InputGroup } from 'reactstrap'
+import { Button, Card, CardBody, Modal, ModalBody, ModalFooter, ModalHeader, Row, Col, Input, InputGroup, Badge } from 'reactstrap'
 import AlertService from '../../../services/alertService'
 import BasicAutoCompleteDropdown from '../../components/BasicAutoCompleteDropdown/BasicAutoCompleteDropdown'
 import DataTable from 'react-data-table-component'
@@ -11,36 +11,11 @@ import { toast } from 'react-toastify'
 import moment from 'moment'
 import Flatpickr from 'react-flatpickr'
 import Type from '../../components/vehicletype'
-import { COLUMNS_WIDTH, VEHICLE_PLATE_COLOR, VIOLATION_STATUS} from '../../../constants/app'
+import { COLUMNS_WIDTH, VEHICLE_PLATE_COLOR, VIOLATION_STATUS } from '../../../constants/app'
 import { DATE_DISPLAY_FORMAT_HOURS_SECONDS } from '../../../constants/dateFormats'
+import { CHECK_SOURCE, VEHICLE_TYPE } from '../../../constants/alert'
 import '@styles/react/libs/flatpickr/flatpickr.scss'
 import './index.scss'
-
-// Constants cho filter options
-const CHECK_SOURCE = [
-  { value: 'vehicleAlert', label: 'Cảnh báo xe cơ giới' },
-  { value: 'trafficPolice', label: 'Cảnh sát giao thông' },
-  { value: 'vneTraffic', label: 'VNeTraffic' },
-  { value: 'trafficPoliceLookup', label: 'Tra cứu cảnh sát giao thông' }
-]
-
-const vehicleTypes = [
-  { value: "", label: "Tất cả phương tiện" },
-  { value: 1, label: "Xe ô tô con < 9 chỗ" },
-  { value: 20, label: "Xe rơ mooc" },
-  { value: 10, label: "Phương tiện khác" }
-]
-
-// Hàm hỗ trợ lấy class màu biển số xe
-const getPlateColorClass = (colorValue) => {
-  const colorMap = {
-    [VEHICLE_PLATE_COLOR.WHITE.value]: 'color_white',
-    [VEHICLE_PLATE_COLOR.BLUE.value]: 'color_blue',
-    [VEHICLE_PLATE_COLOR.YELLOW.value]: 'color_yellow',
-    [VEHICLE_PLATE_COLOR.RED.value]: 'color_red'
-  }
-  return colorMap[colorValue] || ''
-}
 
 // Hàm hỗ trợ lấy nhãn nguồn tra cứu
 const getCheckSourceLabel = (checkSourceValue) => {
@@ -72,7 +47,8 @@ export default function Alert() {
   const [dataList, setDataList] = useState([])
   const [filter, setFilter] = useState({
     filter: {
-      status: undefined
+      violationStatus: null,
+      checkSource: null
     },
     limit: 10,
     skip: 0,
@@ -88,7 +64,7 @@ export default function Alert() {
   // Tùy chọn bộ lọc
   const optionsStatus = [
     {
-      value: undefined,
+      value: null,
       label: 'Tất cả trạng thái'
     },
     ...Object.values(VIOLATION_STATUS)
@@ -96,7 +72,7 @@ export default function Alert() {
 
   const optionsCheckSource = [
     {
-      value: undefined,
+      value: null,
       label: 'Tất cả nguồn tra cứu'
     },
     ...CHECK_SOURCE
@@ -155,7 +131,7 @@ export default function Alert() {
       minWidth: COLUMNS_WIDTH.LARGE,
       cell: (row) => {
         const { vehiclePlateNumber, vehiclePlateColor } = row
-        const colorClass = getPlateColorClass(vehiclePlateColor)
+        const colorClass = Object.values(VEHICLE_PLATE_COLOR).find(item => item.value === vehiclePlateColor)?.color || ''
         return (
           <p className={`color_licensePlates ${colorClass}`}>
             {vehiclePlateNumber}
@@ -179,11 +155,11 @@ export default function Alert() {
       name: 'TRẠNG THÁI',
       minWidth: COLUMNS_WIDTH.LARGE,
       cell: (row) => {
-        const status = VIOLATION_STATUS[row?.violationStatus]
+        const status = VIOLATION_STATUS.find(item => item.value === row?.violationStatus)
         return (
-          <span className={`text-${status?.color || 'dark'} font-weight-bold`}>
+          <Badge color={status?.color || 'dark'}>
             {status?.label || row?.violationStatus}
-          </span>
+          </Badge>
         )
       }
     },
@@ -315,7 +291,7 @@ export default function Alert() {
                 className="w-100"
                 placeholder="Phương tiện"
                 name='vehicleType'
-                options={vehicleTypes}
+                options={VEHICLE_TYPE}
                 onChange={({ value }) => {
                   setFirstPage(!firstPage)
                   setFilter((prev) => ({
@@ -334,7 +310,7 @@ export default function Alert() {
                 className="w-100"
                 placeholder="Trạng thái"
                 options={optionsStatus}
-                value={optionsStatus.find((el) => el.value === filter?.filter?.violationStatus)}
+                value={filter?.filter?.violationStatus === null ? undefined : optionsStatus.find((el) => el.value === filter?.filter?.violationStatus)}
                 onChange={({ value }) => {
                   setFirstPage(!firstPage)
                   setFilter((prev) => ({
@@ -353,7 +329,7 @@ export default function Alert() {
                 className="w-100"
                 placeholder="Nguồn tra cứu"
                 options={optionsCheckSource}
-                value={optionsCheckSource.find((el) => el.value === filter?.filter?.checkSource)}
+                value={filter?.filter?.checkSource === null ? undefined : optionsCheckSource.find((el) => el.value === filter?.filter?.checkSource)}
                 onChange={({ value }) => {
                   setFirstPage(!firstPage)
                   setFilter((prev) => ({
