@@ -8,38 +8,12 @@ import DataTable from 'react-data-table-component'
 import BasicTablePaging from '../../components/BasicTablePaging'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import moment from 'moment'
-import Flatpickr from 'react-flatpickr'
+import { DatePicker } from 'antd'
 import Type from '../../components/vehicletype'
 import { COLUMNS_WIDTH, VEHICLE_PLATE_COLOR, VIOLATION_STATUS } from '../../../constants/app'
-import { DATE_DISPLAY_FORMAT_HOURS_SECONDS } from '../../../constants/dateFormats'
+import { convertTimeDateMinute } from '../../../constants/dateFormats'
 import { CHECK_SOURCE, VEHICLE_TYPE } from '../../../constants/alert'
-import '@styles/react/libs/flatpickr/flatpickr.scss'
 import './index.scss'
-
-// Hàm hỗ trợ lấy nhãn nguồn tra cứu
-const getCheckSourceLabel = (checkSourceValue) => {
-  const source = CHECK_SOURCE.find(item => item.value === checkSourceValue)
-  return source ? source.label : checkSourceValue
-}
-
-// Hàm hỗ trợ định dạng thời gian vi phạm sử dụng dateFormats
-const formatViolationTime = (timeString) => {
-  if (!timeString) {
-    return { time: '--:--:--', date: '--/--/----' }
-  }
-  
-  const momentObj = moment(timeString)
-  if (!momentObj.isValid()) {
-    return { time: '--:--:--', date: '--/--/----' }
-  }
-  
-  // Sử dụng format từ dateFormats: 'HH:mm:ss - DD/MM/YYYY'
-  const formatted = momentObj.format(DATE_DISPLAY_FORMAT_HOURS_SECONDS)
-  const [time, date] = formatted.split(' - ')
-  
-  return { time, date }
-}
 
 export default function Alert() {
   const intl = useIntl()
@@ -58,10 +32,18 @@ export default function Alert() {
   const [isLoading, setIsLoading] = useState(false)
   const [idAlertToDelete, setIdAlertToDelete] = useState(null)
   const [firstPage, setFirstPage] = useState(true)
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
-
+  const [startDate, setStartDate] = useState(null)
+  const [endDate, setEndDate] = useState(null)
+  
   // Tùy chọn bộ lọc
+  const optionsVehicleType = [
+    {
+      value: null,
+      label: 'Tất cả phương tiện'
+    },
+    ...VEHICLE_TYPE
+  ]
+
   const optionsStatus = [
     {
       value: null,
@@ -78,33 +60,12 @@ export default function Alert() {
     ...CHECK_SOURCE
   ]
 
-  // Xử lý bộ lọc ngày tháng
-  const handleFilterStartDate = (date) => {
-    const newDateObj = date.toString()
-    const newDate = moment(newDateObj).format('DD/MM/YYYY')
-    if (newDateObj) {
-      setStartDate(newDate)
-    } else {
-      setStartDate()
-    }
-  }
-
-  const handleFilterEndDate = (date) => {
-    const newDateObj = date.toString()
-    const newDate = moment(newDateObj).format('DD/MM/YYYY')
-    if (newDateObj) {
-      setEndDate(newDate)
-    } else {
-      setEndDate()
-    }
-  }
-
   const handleFilterDay = () => {
     setFirstPage(!firstPage)
     const newFilter = {
       ...filter,
-      startDate,
-      endDate,
+      startDate: startDate ? startDate.format('DD/MM/YYYY') : undefined,
+      endDate: endDate ? endDate.format('DD/MM/YYYY') : undefined,
       skip: 0
     }
     if (!startDate) {
@@ -130,21 +91,14 @@ export default function Alert() {
       name: 'BIỂN SỐ XE',
       minWidth: COLUMNS_WIDTH.LARGE,
       cell: (row) => {
-        const { vehiclePlateNumber, vehiclePlateColor } = row
-        const colorClass = Object.values(VEHICLE_PLATE_COLOR).find(item => item.value === vehiclePlateColor)?.color || ''
-        return (
-          <p className={`color_licensePlates ${colorClass}`}>
-            {vehiclePlateNumber}
-          </p>
-        )
+        const colorClass = Object.values(VEHICLE_PLATE_COLOR).find(item => item.value === row.vehiclePlateColor)?.color || ''
+        return <p className={`color_licensePlates ${colorClass}`}>{row.vehiclePlateNumber}</p>
       }
     },
     {
       name: 'LOẠI PHƯƠNG TIỆN',
       minWidth: COLUMNS_WIDTH.XLARGE,
-      cell: (row) => {
-        return <Type vehicleType={Number(row.vehicleType)} />
-      }
+      cell: (row) => <Type vehicleType={Number(row.vehicleType)} />
     },
     {
       name: 'LỖI VI PHẠM',
@@ -155,7 +109,7 @@ export default function Alert() {
       name: 'TRẠNG THÁI',
       minWidth: COLUMNS_WIDTH.LARGE,
       cell: (row) => {
-        const status = VIOLATION_STATUS.find(item => item.value === row?.violationStatus)
+        const status = Object.values(VIOLATION_STATUS).find(item => item.value === row?.violationStatus);
         return (
           <Badge color={status?.color || 'dark'}>
             {status?.label || row?.violationStatus}
@@ -167,7 +121,9 @@ export default function Alert() {
       name: 'THỜI GIAN VI PHẠM',
       minWidth: COLUMNS_WIDTH.LARGE,
       cell: (row) => {
-        const { time, date } = formatViolationTime(row.violationTime)
+        const formatted = convertTimeDateMinute(row.violationTime)
+        if (!formatted) return <div>-</div>
+        const [time, date] = formatted.split(' - ')
         return (
           <div>
             <div>{time}</div>
@@ -195,7 +151,9 @@ export default function Alert() {
       name: 'THỜI GIAN TRA CỨU MỚI NHẤT',
       minWidth: COLUMNS_WIDTH.XLARGE,
       cell: (row) => {
-        const { time, date } = formatViolationTime(row.lastCheckTime)
+        const formatted = convertTimeDateMinute(row.lastCheckTime)
+        if (!formatted) return <div>-</div>
+        const [time, date] = formatted.split(' - ')
         return (
           <div>
             <div>{time}</div>
@@ -207,7 +165,13 @@ export default function Alert() {
     {
       name: 'NGUỒN TRA CỨU',
       minWidth: COLUMNS_WIDTH.XLARGE,
-      cell: (row) => <span>{getCheckSourceLabel(row?.checkSource)}</span>
+      cell: (row) => (
+        <span>
+          {
+            (CHECK_SOURCE.find(item => item.value === row?.checkSource)?.label) || row?.checkSource
+          }
+        </span>
+      )
     },
     {
       name: 'HÀNH ĐỘNG',
@@ -226,8 +190,7 @@ export default function Alert() {
     setIsLoading(true)
     AlertService.getList(filter).then((res) => {
       setIsLoading(false)
-      const { data } = res
-      setDataList(data || [])
+      setDataList(res?.data || [])
     })
   }
 
@@ -250,7 +213,6 @@ export default function Alert() {
   
   useEffect(() => {
     getData(filter)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter])
 
   return (
@@ -265,11 +227,8 @@ export default function Alert() {
                   className="dataTable-filter"
                   type="search"
                   bsSize="md"
-                  id="search-input"
                   value={searchValue}
-                  onChange={(e) => {
-                    setSearchValue(e.target.value)
-                  }}
+                  onChange={(e) => setSearchValue(e.target.value)}
                 />
               </InputGroup>
               <Button
@@ -290,8 +249,8 @@ export default function Alert() {
               <BasicAutoCompleteDropdown
                 className="w-100"
                 placeholder="Phương tiện"
-                name='vehicleType'
-                options={VEHICLE_TYPE}
+                options={optionsVehicleType}
+                value={filter?.filter?.vehicleType === null ? undefined : optionsVehicleType.find((el) => el.value === filter?.filter?.vehicleType)}
                 onChange={({ value }) => {
                   setFirstPage(!firstPage)
                   setFilter((prev) => ({
@@ -345,19 +304,25 @@ export default function Alert() {
             </Col>
           </Row>
           <Row className="mb-1">
-            <Col lg="3" sm="6" xs="12" className="d-flex mb-1">
-              <Flatpickr
-                id="single"
-                value={startDate}
-                options={{ mode: 'range', dateFormat: 'd/m/Y', disableMobile: 'true' }}
-                placeholder={intl.formatMessage({ id: 'start-date' }) + ' - ' + intl.formatMessage({ id: 'end-date' })}
-                className="form-control form-control-input"
-                onChange={(date) => {
-                  handleFilterStartDate([date[0]])
-                  handleFilterEndDate([date[1]])
-                }}
-              />
-              <Button color="primary" size="md" className="" onClick={() => handleFilterDay()}>
+            <Col lg="4" sm="6" xs="12" className="d-flex mb-1">
+              <div className="form-control d-flex" style={{ padding: 0, border: 'none' }}>
+                <DatePicker.RangePicker
+                  value={[startDate, endDate]}
+                  onChange={(dates) => {
+                    if (dates) {
+                      setStartDate(dates[0])
+                      setEndDate(dates[1])
+                    } else {
+                      setStartDate(null)
+                      setEndDate(null)
+                    }
+                  }}
+                  format="DD/MM/YYYY"
+                  placeholder={[intl.formatMessage({ id: 'start-date' }), intl.formatMessage({ id: 'end-date' })]}
+                  style={{ width: '100%' }}
+                />
+              </div>
+              <Button color="primary" size="md" onClick={() => handleFilterDay()}>
                 <Search size={15} />
               </Button>
             </Col>
@@ -384,7 +349,7 @@ export default function Alert() {
               })
             }
           />
-          <Modal isOpen={idAlertToDelete ? true : false} toggle={() => setIdAlertToDelete(null)} className={`modal-dialog-centered `}>
+          <Modal isOpen={!!idAlertToDelete} toggle={() => setIdAlertToDelete(null)} className="modal-dialog-centered">
             <ModalHeader toggle={() => setIdAlertToDelete(null)}>Xóa alert</ModalHeader>
             <ModalBody>
               <p>

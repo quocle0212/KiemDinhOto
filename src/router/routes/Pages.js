@@ -378,6 +378,10 @@ const PagesRoutes = [
   {
     path: '/pages/alert',
     component: lazy(() => import('../../views/pages/alert/index'))
+  },
+  {
+    path: '/pages/detail-alert/:id',
+    component: lazy(() => import('../../views/pages/alert/detail'))
   }
 ]
 
