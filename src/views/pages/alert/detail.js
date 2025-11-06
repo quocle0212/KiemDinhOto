@@ -1,14 +1,14 @@
 import { ChevronLeft } from 'react-feather'
 import { useHistory, useParams } from 'react-router-dom'
-import { Button, Card, CardBody, Col, FormGroup, Input, Row } from 'reactstrap'
+import { Button, Card, CardBody, Col, FormGroup, Input, Row, FormFeedback } from 'reactstrap'
 import { useEffect, useState } from 'react'
 import AlertService from '../../../services/alertService'
 import BasicAutoCompleteDropdown from '../../components/BasicAutoCompleteDropdown/BasicAutoCompleteDropdown'
 import { toast } from 'react-toastify'
 import { VEHICLE_PLATE_COLOR, VIOLATION_STATUS } from '../../../constants/app'
-import { DatePicker } from 'antd'
-import moment from 'moment'
+import DatePicker from '../../components/datePicker/DatePicker'
 import { VEHICLE_TYPE, CHECK_SOURCE } from '../../../constants/alert'
+import { validateVehicleIdentity } from '../../../helper/validatorFunc'
 import './index.scss'
 
 export default function DetailAlert() {
@@ -18,6 +18,7 @@ export default function DetailAlert() {
   const [isLoading, setIsLoading] = useState(false)
   const [dataDetail, setDataDetail] = useState({})
   const [violationTime, setViolationTime] = useState(null)
+  const [vehiclePlateNumberError, setVehiclePlateNumberError] = useState('')
 
   const getDetailById = () => {
     if (isLoading) {
@@ -26,7 +27,7 @@ export default function DetailAlert() {
     setIsLoading(true)
     AlertService.getDetailById({ id }).then((data) => {
       setIsLoading(false)
-      const violationDateTime = data?.violationTime ? moment(data.violationTime) : null
+      const violationDateTime = data?.violationTime ? new Date(data.violationTime) : null
       setViolationTime(violationDateTime)
       setDataDetail({
         vehiclePlateNumber: data?.vehiclePlateNumber,
@@ -166,19 +167,38 @@ export default function DetailAlert() {
                 <h5>Thông tin chung</h5>
                 <Row className="mb-1">
                   <Col lg="6">
-                    <FormGroup>
+                    <FormGroup style={{ position: 'relative' }}>
                       <p>Biển số xe <span className="text-danger">*</span></p>
                       <Input
                         placeholder="Nhập biển số xe"
                         value={dataDetail?.vehiclePlateNumber}
                         disabled={idAlert > 0}
+                        invalid={!!vehiclePlateNumberError}
                         onChange={(e) => {
                           setDataDetail({
                             ...dataDetail,
                             vehiclePlateNumber: e.target.value
                           })
+                          if (vehiclePlateNumberError) {
+                            setVehiclePlateNumberError('')
+                          }
+                        }}
+                        onBlur={async () => {
+                          if (dataDetail?.vehiclePlateNumber) {
+                            try {
+                              await validateVehicleIdentity(dataDetail.vehiclePlateNumber)
+                              setVehiclePlateNumberError('')
+                            } catch (error) {
+                              setVehiclePlateNumberError(error)
+                            }
+                          }
                         }}
                       />
+                      {vehiclePlateNumberError && (
+                        <FormFeedback style={{ position: 'absolute', top: '100%', zIndex: 1 }}>
+                          {vehiclePlateNumberError}
+                        </FormFeedback>
+                      )}
                     </FormGroup>
                   </Col>
                   <Col lg="6">
@@ -187,7 +207,7 @@ export default function DetailAlert() {
                       <BasicAutoCompleteDropdown
                         placeholder="Chọn màu biển số xe"
                         className="w-100"
-                        options={Object.values(VEHICLE_PLATE_COLOR)}
+                        options={Object.values(VEHICLE_PLATE_COLOR).filter(item => item.value !== 4)}
                         value={Object.values(VEHICLE_PLATE_COLOR).find((el) => el.value === dataDetail?.vehiclePlateColor)}
                         isDisabled={idAlert > 0}
                         onChange={({ value }) => {
@@ -258,17 +278,21 @@ export default function DetailAlert() {
                     <FormGroup>
                       <p>Thời gian vi phạm <span className="text-danger">*</span></p>
                       <DatePicker
+                        name="violationTime"
                         value={violationTime}
-                        showTime={{ format: 'HH:mm:ss' }}
-                        format="DD/MM/YYYY HH:mm:ss"
                         placeholder="Chọn thời gian vi phạm"
-                        className="form-control"
-                        style={{ width: '100%' }}
-                        onChange={(date) => {
+                        className="form-control detail-datepicker"
+                        options={{
+                          enableTime: true,
+                          dateFormat: 'd/m/Y H:i:S',
+                          time_24hr: true
+                        }}
+                        onChange={(dates) => {
+                          const date = dates && dates.length > 0 ? dates[0] : null
                           setViolationTime(date)
                           setDataDetail({
                             ...dataDetail,
-                            violationTime: date ? date.toISOString() : ''
+                            violationTime: date ? new Date(date).toISOString() : ''
                           })
                         }}
                       />

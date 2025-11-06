@@ -8,7 +8,8 @@ import DataTable from 'react-data-table-component'
 import BasicTablePaging from '../../components/BasicTablePaging'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { DatePicker } from 'antd'
+import moment from 'moment'
+import DatePicker from '../../components/datePicker/DatePicker'
 import Type from '../../components/vehicletype'
 import { COLUMNS_WIDTH, VEHICLE_PLATE_COLOR, VIOLATION_STATUS } from '../../../constants/app'
 import { convertTimeDateMinute } from '../../../constants/dateFormats'
@@ -64,8 +65,8 @@ export default function Alert() {
     setFirstPage(!firstPage)
     const newFilter = {
       ...filter,
-      startDate: startDate ? startDate.format('DD/MM/YYYY') : undefined,
-      endDate: endDate ? endDate.format('DD/MM/YYYY') : undefined,
+      startDate: startDate ? moment(startDate).format('DD/MM/YYYY') : undefined,
+      endDate: endDate ? moment(endDate).format('DD/MM/YYYY') : undefined,
       skip: 0
     }
     if (!startDate) {
@@ -213,6 +214,7 @@ export default function Alert() {
   
   useEffect(() => {
     getData(filter)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter])
 
   return (
@@ -304,22 +306,29 @@ export default function Alert() {
             </Col>
           </Row>
           <Row className="mb-1">
-            <Col lg="4" sm="6" xs="12" className="d-flex mb-1">
-              <div className="form-control d-flex" style={{ padding: 0, border: 'none' }}>
-                <DatePicker.RangePicker
-                  value={[startDate, endDate]}
+            <Col lg="3" sm="6" xs="12" className="d-flex mb-1">
+              <div style={{ width: '100%', position: 'relative' }}>
+                <DatePicker
+                  name="dateRange"
+                  value={startDate && endDate ? [startDate, endDate] : startDate ? [startDate] : null}
+                  placeholder="Từ ngày - Đến ngày"
+                  className="form-control w-100 index-datepicker"
+                  options={{
+                    mode: 'range',
+                    dateFormat: 'd/m/Y'
+                  }}
                   onChange={(dates) => {
-                    if (dates) {
+                    if (dates && dates.length >= 2) {
                       setStartDate(dates[0])
                       setEndDate(dates[1])
+                    } else if (dates && dates.length === 1) {
+                      setStartDate(dates[0])
+                      setEndDate(null)
                     } else {
                       setStartDate(null)
                       setEndDate(null)
                     }
                   }}
-                  format="DD/MM/YYYY"
-                  placeholder={[intl.formatMessage({ id: 'start-date' }), intl.formatMessage({ id: 'end-date' })]}
-                  style={{ width: '100%' }}
                 />
               </div>
               <Button color="primary" size="md" onClick={() => handleFilterDay()}>
