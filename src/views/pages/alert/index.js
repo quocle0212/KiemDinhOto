@@ -17,6 +17,8 @@ import { COLUMNS_WIDTH, VEHICLE_PLATE_COLOR, VIOLATION_STATUS } from '../../../c
 import { convertTimeDateMinute } from '../../../constants/dateFormats'
 import { CHECK_SOURCE, VEHICLE_TYPE } from '../../../constants/alert'
 import ModalImportAlert from './ModalImportAlert'
+import LoadingDialog from '../../components/buttons/ButtonLoading'
+import { onExportExcel } from './exportAlertUtils'
 import './index.scss'
 
 export default function Alert() {
@@ -355,7 +357,7 @@ export default function Alert() {
                 <Search size={15} />
               </Button>
             </Col>
-            <Col lg="9" sm="6" xs="12" className="d-flex mb-1 flex-wrap">
+            <Col lg="4" sm="6" xs="12" className="d-flex mb-1 flex-wrap">
               <div>
                 <Button.Ripple
                   color="primary"
@@ -375,6 +377,9 @@ export default function Alert() {
                   onClick={() => setIsModalImport(true)}>
                   Nhập file
                 </Button>
+              </div>
+              <div className="res-export mb-1">
+                <LoadingDialog onExportListCustomers={() => onExportExcel(filter)} title="Xuất file" />
               </div>
             </Col>
           </Row>

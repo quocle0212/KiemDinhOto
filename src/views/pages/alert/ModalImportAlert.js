@@ -7,7 +7,6 @@ import { CheckCircle, XCircle, Loader } from 'react-feather'
 import FileUploadExcel from '../../components/upload/FileUploadExcel'
 import AlertService from '../../../services/alertService'
 import CanhBaoAlert from '../../../assets/import/CanhBaoAlert.xlsx'
-import './ModalImportAlert.scss'
 
 const XLSX_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 const FIELD_IMPORT_FULL = [
