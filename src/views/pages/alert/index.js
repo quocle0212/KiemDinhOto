@@ -1,24 +1,28 @@
 import { useEffect, useState } from 'react'
 import { Trash, Edit, Search } from 'react-feather'
 import { useIntl } from 'react-intl'
-import { Button, Card, CardBody, Modal, ModalBody, ModalFooter, ModalHeader, Row, Col, Input, InputGroup, Badge } from 'reactstrap'
+import { Button, Card, CardBody, Row, Col, Input, InputGroup, Badge } from 'reactstrap'
+import moment from 'moment'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 import AlertService from '../../../services/alertService'
 import BasicAutoCompleteDropdown from '../../components/BasicAutoCompleteDropdown/BasicAutoCompleteDropdown'
 import DataTable from 'react-data-table-component'
 import BasicTablePaging from '../../components/BasicTablePaging'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import moment from 'moment'
 import DatePicker from '../../components/datePicker/DatePicker'
 import Type from '../../components/vehicletype'
 import { COLUMNS_WIDTH, VEHICLE_PLATE_COLOR, VIOLATION_STATUS } from '../../../constants/app'
 import { convertTimeDateMinute } from '../../../constants/dateFormats'
 import { CHECK_SOURCE, VEHICLE_TYPE } from '../../../constants/alert'
+import ModalImportAlert from './ModalImportAlert'
 import './index.scss'
 
 export default function Alert() {
   const intl = useIntl()
   const history = useHistory()
+  const MySwal = withReactContent(Swal)
   const [dataList, setDataList] = useState([])
   const [filter, setFilter] = useState({
     filter: {
@@ -31,10 +35,10 @@ export default function Alert() {
   })
   const [searchValue, setSearchValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [idAlertToDelete, setIdAlertToDelete] = useState(null)
   const [firstPage, setFirstPage] = useState(true)
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
+  const [isModalImport, setIsModalImport] = useState(false)
   
   // Tùy chọn bộ lọc
   const optionsVehicleType = [
@@ -65,8 +69,8 @@ export default function Alert() {
     setFirstPage(!firstPage)
     const newFilter = {
       ...filter,
-      startDate: startDate ? moment(startDate).format('DD/MM/YYYY') : undefined,
-      endDate: endDate ? moment(endDate).format('DD/MM/YYYY') : undefined,
+      startDate: startDate ? moment(startDate).toISOString() : undefined,
+      endDate: endDate ? moment(endDate).toISOString() : undefined,
       skip: 0
     }
     if (!startDate) {
@@ -180,7 +184,7 @@ export default function Alert() {
       cell: (row) => (
         <div>
           <Edit className="pointer" size={15} onClick={() => row?.alertId && history.push(`/pages/detail-alert/${row?.alertId}`)} />
-          <Trash className="pointer ml-3" size={15} onClick={() => setIdAlertToDelete(row?.alertId)} />
+          <Trash className="pointer ml-3" size={15} onClick={() => row?.alertId && handleDeleteAlert(row?.alertId)} />
         </div>
       )
     }
@@ -195,22 +199,38 @@ export default function Alert() {
     })
   }
 
-  const deleteAlert = () => {
-    if (isLoading) {
-      return
-    }
-    setIsLoading(true)
-    AlertService.deleteById({ id: idAlertToDelete }).then((res) => {
-      setIsLoading(false)
-      if (res) {
-        getData(filter)
-        setIdAlertToDelete(null)
-        toast.success('Xóa thành công')
-      } else {
-        toast.error('Xóa thất bại')
+  const handleDeleteAlert = (alertId) => {
+    return MySwal.fire({
+      title: 'Xóa cảnh báo',
+      text: `Bạn có chắc chắn muốn xoá cảnh báo với id là ${alertId} không?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Xóa',
+      cancelButtonText: 'Hủy',
+      customClass: {
+        confirmButton: 'btn btn-danger',
+        cancelButton: 'btn btn-primary ml-1'
+      },
+      buttonsStyling: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (isLoading) {
+          return
+        }
+        setIsLoading(true)
+        AlertService.deleteById({ id: alertId }).then((res) => {
+          setIsLoading(false)
+          if (res) {
+            getData(filter)
+            toast.success('Xóa thành công')
+          } else {
+            toast.error('Xóa thất bại')
+          }
+        })
       }
     })
   }
+
   
   useEffect(() => {
     getData(filter)
@@ -307,12 +327,12 @@ export default function Alert() {
           </Row>
           <Row className="mb-1">
             <Col lg="3" sm="6" xs="12" className="d-flex mb-1">
-              <div style={{ width: '100%', position: 'relative' }}>
+              <div style={{ flex: 1, position: 'relative' }}>
                 <DatePicker
                   name="dateRange"
                   value={startDate && endDate ? [startDate, endDate] : startDate ? [startDate] : null}
                   placeholder="Từ ngày - Đến ngày"
-                  className="form-control w-100 index-datepicker"
+                  className="form-control w-100"
                   options={{
                     mode: 'range',
                     dateFormat: 'd/m/Y'
@@ -331,19 +351,31 @@ export default function Alert() {
                   }}
                 />
               </div>
-              <Button color="primary" size="md" onClick={() => handleFilterDay()}>
+              <Button color="primary" size="md" className="mb-1" onClick={() => handleFilterDay()}>
                 <Search size={15} />
               </Button>
             </Col>
-            <Col lg="3" sm="6" xs="12" className="d-flex mb-1">
-              <Button.Ripple
-                color="primary"
-                size="md"
-                onClick={() => {
-                  history.push(`/pages/detail-alert/0`)
-                }}>
-                {intl.formatMessage({ id: 'add_new' })}
-              </Button.Ripple>
+            <Col lg="9" sm="6" xs="12" className="d-flex mb-1 flex-wrap">
+              <div>
+                <Button.Ripple
+                  color="primary"
+                  size="md"
+                  className="mr-2 style_add mb-1"
+                  onClick={() => {
+                    history.push(`/pages/detail-alert/0`)
+                  }}>
+                  {intl.formatMessage({ id: 'add_new' })}
+                </Button.Ripple>
+              </div>
+              <div>
+                <Button
+                  color="primary"
+                  size="md"
+                  className="mr-2 style_mobie mb-1"
+                  onClick={() => setIsModalImport(true)}>
+                  Nhập file
+                </Button>
+              </div>
             </Col>
           </Row>
           <DataTable noHeader paginationServer className="react-dataTable" columns={serverSideColumns} data={dataList} progressPending={isLoading} />
@@ -358,25 +390,7 @@ export default function Alert() {
               })
             }
           />
-          <Modal isOpen={!!idAlertToDelete} toggle={() => setIdAlertToDelete(null)} className="modal-dialog-centered">
-            <ModalHeader toggle={() => setIdAlertToDelete(null)}>Xóa alert</ModalHeader>
-            <ModalBody>
-              <p>
-                Bạn có chắc chắn muốn xoá alert với id là <strong>{idAlertToDelete}</strong> không?
-              </p>
-            </ModalBody>
-            <ModalFooter>
-              <Button.Ripple
-                color="primary"
-                size="sm"
-                className="px-2"
-                onClick={() => {
-                  deleteAlert()
-                }}>
-                Xóa alert
-              </Button.Ripple>
-            </ModalFooter>
-          </Modal>
+          <ModalImportAlert isOpen={isModalImport} setIsOpen={setIsModalImport} intl={intl} />
         </CardBody>
       </Card>
     </div>
