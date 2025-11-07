@@ -1,10 +1,13 @@
+import moment from 'moment'
+import { getMomentFromDateString } from '../../../constants/dateFormats'
+
 // Dữ liệu giả cho danh sách cảnh báo vi phạm
 const mockAlertData = [
   {
     alertId: 1,
     vehiclePlateNumber: '29A12345',
     vehiclePlateColor: 1, // 1: Trắng, 2: Xanh, 3: Vàng, 4: Đỏ
-    vehicleType: 1, // 1: Xe ô tô con < 9 chỗ, 2: Xe rơ mooc, 3: Phương tiện khác
+    vehicleType: 1, // 1: Xe ô tô con < 9 chỗ, 10: Phương tiện khác, 20: Xe rơ mooc
     violationType: 'Vượt đèn đỏ',
     violationStatus: 'PENDING', // PENDING: Chưa xử lý, PROCESSED: Đã xử lý, NO_VIOLATION: Không vi phạm
     violationTime: '2025-11-04T08:30:15',
@@ -18,7 +21,7 @@ const mockAlertData = [
     alertId: 2,
     vehiclePlateNumber: '30B98765',
     vehiclePlateColor: 2,
-    vehicleType: 2,
+    vehicleType: 20,
     violationType: 'Vượt tốc độ cho phép 20km/h',
     violationStatus: 'PROCESSED',
     violationTime: '2025-11-03T14:20:45',
@@ -46,7 +49,7 @@ const mockAlertData = [
     alertId: 4,
     vehiclePlateNumber: '43D55555',
     vehiclePlateColor: 4,
-    vehicleType: 3,
+    vehicleType: 10,
     violationType: 'Dừng đỗ sai quy định',
     violationStatus: 'PENDING',
     violationTime: '2025-11-04T07:15:30',
@@ -74,7 +77,7 @@ const mockAlertData = [
     alertId: 6,
     vehiclePlateNumber: '29F11111',
     vehiclePlateColor: 2,
-    vehicleType: 2,
+    vehicleType: 20,
     violationType: 'Chở hàng quá tải trọng',
     violationStatus: 'PENDING',
     violationTime: '2025-11-04T05:45:20',
@@ -142,22 +145,21 @@ export const mockGetList = (data) => {
   // Lọc theo khoảng thời gian
   if (data.startDate || data.endDate) {
     filteredData = filteredData.filter(item => {
-      const itemDate = item.violationTime.split('T')[0] // YYYY-MM-DD
-      const start = data.startDate ? data.startDate.split('/').reverse().join('-') : null // DD/MM/YYYY -> YYYY-MM-DD
-      const end = data.endDate ? data.endDate.split('/').reverse().join('-') : null
+      const itemMoment = moment(item.violationTime)
+      const startMoment = data.startDate ? getMomentFromDateString(data.startDate)?.startOf('day') : null
+      const endMoment = data.endDate ? getMomentFromDateString(data.endDate)?.endOf('day') : null
 
-      if (start && end) {
-        return itemDate >= start && itemDate <= end
-      } else if (start) {
-        return itemDate >= start
-      } else if (end) {
-        return itemDate <= end
+      if (startMoment && endMoment) {
+        return itemMoment.isBetween(startMoment, endMoment, null, '[]')
+      } else if (startMoment) {
+        return itemMoment.isSameOrAfter(startMoment)
+      } else if (endMoment) {
+        return itemMoment.isSameOrBefore(endMoment)
       }
       return true
     })
   }
 
-  // Phân trang
   const skip = data.skip || 0
   const limit = data.limit || 10
   const paginatedData = filteredData.slice(skip, skip + limit)
