@@ -19,8 +19,34 @@ import { CHECK_SOURCE, VEHICLE_TYPE } from '../../../constants/alert'
 import ModalImportAlert from './ModalImportAlert'
 import LoadingDialogExportFile from '../../components/Export/LoadingDialogExportFile'
 import { mockGetList } from './mockAlertService'
-import { createRowData } from './exportAlertUtils'
 import './index.scss'
+
+// Tìm label từ value
+const findLabel = (value, collection, isObject = false) => {
+  const items = isObject ? Object.values(collection) : collection
+  return items.find(item => item.value === value)?.label || value
+}
+
+/**
+ * Convert a single alert item to Excel row format
+ * @param {Object} item - Alert data item
+ * @param {Number} index - Row index for STT
+ * @returns {Object} - Formatted row for Excel export
+ */
+const createRowData = (item, index = 0) => ({
+  'STT': index + 1,
+  'Biển số xe': item?.vehiclePlateNumber || '',
+  'Màu biển số xe': findLabel(item.vehiclePlateColor, VEHICLE_PLATE_COLOR, true),
+  'Loại phương tiện': findLabel(item.vehicleType, VEHICLE_TYPE),
+  'Lỗi vi phạm': item?.violationType || '',
+  'Trạng thái xử lý': findLabel(item.violationStatus, VIOLATION_STATUS, true),
+  'Thời gian vi phạm': convertTimeDateMinute(item?.violationTime) || '',
+  'Địa điểm vi phạm': item?.violationLocation || '',
+  'Đơn vị phát hiện': item?.detectionUnit || '',
+  'Đơn vị giải quyết': item?.resolutionUnit || '',
+  'Thời gian tra cứu mới nhất': convertTimeDateMinute(item?.lastCheckTime) || '',
+  'Nguồn tra cứu': findLabel(item.checkSource, CHECK_SOURCE)
+})
 
 export default function Alert() {
   const intl = useIntl()
