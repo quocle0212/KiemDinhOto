@@ -6,6 +6,8 @@ import XLSX from 'xlsx'
 import { CheckCircle, XCircle, Loader } from 'react-feather'
 import FileUploadExcel from '../../components/upload/FileUploadExcel'
 import AlertService from '../../../services/alertService'
+import { VEHICLE_PLATE_COLOR, VIOLATION_STATUS } from '../../../constants/app'
+import { VEHICLE_TYPE } from '../../../constants/alert'
 import CanhBaoAlert from '../../../assets/import/CanhBaoAlert.xlsx'
 
 const XLSX_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -39,40 +41,26 @@ const REQUIRED_FIELDS = ['vehiclePlateNumber', 'vehiclePlateColor', 'vehicleType
 
 // ===== UTILITY FUNCTIONS FOR DATA PROCESSING (DEMO ONLY) =====
 const processVehiclePlateColor = (color) => {
-  // Convert từ text Excel sang số theo constants LICENSEPLATES_COLOR
-  const colorMap = {
-    'Trắng': 1,    // white
-    'Xanh': 2,     // blue
-    'Vàng': 3,     // yellow
-    'Đỏ': 4        // red
-  }
-  return colorMap[color] || color
+  if (!color) return color
+  const found = Object.values(VEHICLE_PLATE_COLOR).find((c) => c.label === color || c.color === color)
+  return found ? found.value : color
 }
 
 const processViolationStatus = (status) => {
-  // Convert từ text Excel sang uppercase string theo constants VIOLATION_STATUS
-  const statusMap = {
-    'Không vi phạm': 'NO_VIOLATION',
-    'Đã xử lý': 'PROCESSED',
-    'Chưa xử lý': 'PENDING'
-  }
-  return statusMap[status] || status
+  if (!status) return status
+  const found = Object.values(VIOLATION_STATUS).find((s) => s.label === status || s.value === status)
+  return found ? found.value : status
 }
 
 const processVehicleType = (type) => {
-  // Convert từ text Excel sang số theo constants VEHICLE_TYPE
-  const typeMap = {
-    'Xe ô tô con < 9 chỗ': 1,
-    'Phương tiện khác': 10,
-    'Xe rơ mooc': 20
-  }
-  return typeMap[type] || type
+  if (!type) return type
+  const found = VEHICLE_TYPE.find((t) => t.label === type || t.value === type)
+  return found ? found.value : type
 }
 
 const processViolationTime = (timeString) => {
   if (!timeString) return ''
-
-  // Handle dd/mm/yyyy hh:mm:ss format
+  
   const dateTimeRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2}):(\d{2})$/
   const match = timeString.toString().match(dateTimeRegex)
 

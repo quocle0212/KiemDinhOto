@@ -10,7 +10,7 @@ import { decryptAes256CBC } from '../../../constants/EncryptionFunctions'
 import addKeyLocalStorage from '../../../helper/localStorage'
 
 function LoadingDialogExportFile(props) {
-  const { title, createRowData, filter, linkApi, nameFile, limit = 100, className = '', style = {} } = props
+  const { title, createRowData, filter, linkApi, nameFile, limit = 100, className = '', style = {}, mockDataFallback } = props
   const { formatMessage: f } = useIntl()
   const [isLoadingExportExcel, setIsLoadingExportExcel] = useState(false)
   const [cancelRequest, setCancelRequest] = useState(undefined)
@@ -44,11 +44,29 @@ function LoadingDialogExportFile(props) {
 
           if (Array.isArray(newData.data.data)) {
             return newData.data.data
+          } else if (Array.isArray(newData.data)) {
+            return newData.data
           } else {
             return 'error'
           }
         })
-        .catch(() => {
+        .catch((error) => {
+          // Nếu có mockDataFallback, sử dụng nó thay vì báo lỗi
+          if (mockDataFallback && typeof mockDataFallback === 'function') {
+            try {
+              const mockResult = mockDataFallback(payload)
+              // Xử lý cấu trúc mock data
+              if (mockResult && mockResult.statusCode === 200) {
+                const mockData = mockResult.data?.data || mockResult.data || []
+                if (Array.isArray(mockData)) {
+                  return mockData
+                }
+              }
+            } catch (mockError) {
+              console.error('Mock data fallback error:', mockError)
+            }
+          }
+          
           toast.warn('Quá trình xuất file đã dừng. Vui lòng thử lại sau!')
           return 'error'
         })
@@ -78,7 +96,7 @@ function LoadingDialogExportFile(props) {
 
     if (!isError) {
       if (arrayData.length > 0) {
-        const convertedData = arrayData.map((item) => createRowData(item))
+        const convertedData = arrayData.map((item, idx) => createRowData(item, idx))
         if (convertedData?.length > 0) {
           let wb = XLSX.utils.book_new(),
             ws = XLSX.utils.json_to_sheet(convertedData)

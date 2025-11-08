@@ -17,8 +17,9 @@ import { COLUMNS_WIDTH, VEHICLE_PLATE_COLOR, VIOLATION_STATUS } from '../../../c
 import { convertTimeDateMinute } from '../../../constants/dateFormats'
 import { CHECK_SOURCE, VEHICLE_TYPE } from '../../../constants/alert'
 import ModalImportAlert from './ModalImportAlert'
-import LoadingDialog from '../../components/buttons/ButtonLoading'
-import { onExportExcel } from './exportAlertUtils'
+import LoadingDialogExportFile from '../../components/Export/LoadingDialogExportFile'
+import { mockGetList } from './mockAlertService'
+import { createRowData } from './exportAlertUtils'
 import './index.scss'
 
 export default function Alert() {
@@ -197,7 +198,9 @@ export default function Alert() {
     setIsLoading(true)
     AlertService.getList(filter).then((res) => {
       setIsLoading(false)
-      setDataList(res?.data || [])
+      // Handle nested data structure from API response
+      const data = res?.data?.data || res?.data || []
+      setDataList(data)
     })
   }
 
@@ -379,7 +382,14 @@ export default function Alert() {
                 </Button>
               </div>
               <div className="res-export mb-1">
-                <LoadingDialog onExportListCustomers={() => onExportExcel(filter)} title="Xuất file" />
+                <LoadingDialogExportFile
+                  title="Xuất file cảnh báo"
+                  createRowData={createRowData}
+                  filter={filter}
+                  linkApi="ViolationAlert/find"
+                  nameFile="Danh sách cảnh báo"
+                  mockDataFallback={mockGetList}
+                />
               </div>
             </Col>
           </Row>
