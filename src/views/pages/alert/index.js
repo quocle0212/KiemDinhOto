@@ -17,7 +17,36 @@ import { COLUMNS_WIDTH, VEHICLE_PLATE_COLOR, VIOLATION_STATUS } from '../../../c
 import { convertTimeDateMinute } from '../../../constants/dateFormats'
 import { CHECK_SOURCE, VEHICLE_TYPE } from '../../../constants/alert'
 import ModalImportAlert from './ModalImportAlert'
+import LoadingDialogExportFile from '../../components/Export/LoadingDialogExportFile'
+import { mockGetList } from './mockAlertService'
 import './index.scss'
+
+// Tìm label từ value
+const findLabel = (value, collection, isObject = false) => {
+  const items = isObject ? Object.values(collection) : collection
+  return items.find(item => item.value === value)?.label || value
+}
+
+/**
+ * Convert a single alert item to Excel row format
+ * @param {Object} item - Alert data item
+ * @param {Number} index - Row index for STT
+ * @returns {Object} - Formatted row for Excel export
+ */
+const createRowData = (item, index = 0) => ({
+  'STT': index + 1,
+  'Biển số xe': item?.vehiclePlateNumber || '',
+  'Màu biển số xe': findLabel(item.vehiclePlateColor, VEHICLE_PLATE_COLOR, true),
+  'Loại phương tiện': findLabel(item.vehicleType, VEHICLE_TYPE),
+  'Lỗi vi phạm': item?.violationType || '',
+  'Trạng thái xử lý': findLabel(item.violationStatus, VIOLATION_STATUS, true),
+  'Thời gian vi phạm': convertTimeDateMinute(item?.violationTime) || '',
+  'Địa điểm vi phạm': item?.violationLocation || '',
+  'Đơn vị phát hiện': item?.detectionUnit || '',
+  'Đơn vị giải quyết': item?.resolutionUnit || '',
+  'Thời gian tra cứu mới nhất': convertTimeDateMinute(item?.lastCheckTime) || '',
+  'Nguồn tra cứu': findLabel(item.checkSource, CHECK_SOURCE)
+})
 
 export default function Alert() {
   const intl = useIntl()
@@ -195,7 +224,9 @@ export default function Alert() {
     setIsLoading(true)
     AlertService.getList(filter).then((res) => {
       setIsLoading(false)
-      setDataList(res?.data || [])
+      // Handle nested data structure from API response
+      const data = res?.data?.data || res?.data || []
+      setDataList(data)
     })
   }
 
@@ -355,7 +386,7 @@ export default function Alert() {
                 <Search size={15} />
               </Button>
             </Col>
-            <Col lg="9" sm="6" xs="12" className="d-flex mb-1 flex-wrap">
+            <Col lg="4" sm="6" xs="12" className="d-flex mb-1 flex-wrap">
               <div>
                 <Button.Ripple
                   color="primary"
@@ -375,6 +406,16 @@ export default function Alert() {
                   onClick={() => setIsModalImport(true)}>
                   Nhập file
                 </Button>
+              </div>
+              <div className="res-export mb-1">
+                <LoadingDialogExportFile
+                  title="Xuất file cảnh báo"
+                  createRowData={createRowData}
+                  filter={filter}
+                  linkApi="ViolationAlert/find"
+                  nameFile="Danh sách cảnh báo"
+                  mockDataFallback={mockGetList}
+                />
               </div>
             </Col>
           </Row>
